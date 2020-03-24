@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PersonInput from "../PersonInput/PersonInput";
 import "./App.css";
 
 let intialCards = [
@@ -78,6 +79,27 @@ function App() {
   const [currentCardUrl, setCurrentCardUrl] = useState("");
   const [cards, setCards] = useState([]);
   const [rule, setRule] = useState("");
+  const [players, setPlayers] = useState([]);
+  const [inputText, setInputText] = useState("");
+
+  function addNewPerson() {
+    setPlayers([...players, inputText]);
+    setInputText("");
+  }
+
+  function keyPressed(event) {
+    if (event.key === "Enter") {
+      addNewPerson();
+    }
+  }
+
+  function handleInputText(e) {
+    if (e.key === "Enter") {
+      addNewPerson();
+    } else {
+      setInputText(e.target.value);
+    }
+  }
 
   useEffect(() => {
     // Do a random shuffle of the cards
@@ -114,7 +136,7 @@ function App() {
     const currentCardType = cards[0].cardName.slice(1);
     setRule(rules[currentCardType]);
   }
-
+  console.log("Players: ", players);
   return (
     <div className="App">
       <h1>Ring of Fire!</h1>
@@ -133,6 +155,12 @@ function App() {
       )}
 
       <p>{rule}</p>
+      <PersonInput
+        addNewPerson={addNewPerson}
+        handleInputText={handleInputText}
+        inputText={inputText}
+        keyPressed={keyPressed}
+      />
     </div>
   );
 }
