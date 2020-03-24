@@ -140,18 +140,20 @@ function App() {
   return (
     <div className="App">
       <h1>Ring of Fire!</h1>
+      <button value="Give me a random card!" onClick={getRandomCard}>
+        Give me a random card!
+      </button>
       {currentCardUrl && (
         <div>
           <img
             src={currentCardUrl}
+            className="card"
             alt={"A card"}
             style={{ maxHeight: "300px" }}
           />
         </div>
       )}
-      <button value="Give me a random card!" onClick={getRandomCard}>
-        Give me a random card!
-      </button>
+
       <p>{rule}</p>
       <PersonInput
         addNewPerson={addNewPerson}
