@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PersonInput from "../PersonInput/PersonInput";
+import PlayerList from "../playerList/index";
 import "./App.css";
 
 let intialCards = [
@@ -58,21 +59,21 @@ let intialCards = [
 ];
 
 const rules = {
-  a: "Waterfall",
-  2: "You: You choose someone to take a drink", // Or random person
-  3: "Me: Take a drink yourself",
-  4: "Floor: Last person to dive on the floor drinks",
-  5: "Categories: Everyone name something in the category you choose. No repeated words! e.g. for 'Kitchen utensils' - Knife, fork, chopping board, etc",
-  6: "Pose Master: Last person to copy your pose drinks",
-  7: "Heaven: Last person to point to Heaven drinks",
-  8: "Make up a new rule!",
-  9: "Rhyme: The person who can't think of a rhyme drinks. No repeated words!", // Randomize list of players?
-  10: "Gecko: Last person to stick themselves to the nearest wall like a gecko drinks!",
+  a: "Waterfall! 🌊",
+  2: "Choose someone to take a drink. 👉🏽", // Or random person
+  3: "Take a drink yourself. 🧉",
+  4: "Floor! 👇🏼 Last person to dive on the floor drinks.   ",
+  5: "Categories! 🎩👗👟👓🧤 Everyone name something in the category you choose. No repeated words! ",
+  6: "Pose Master! 🕺 Last person to copy your pose drinks.",
+  7: "Heaven! ⛅️ Last person to point to Heaven drinks.  ",
+  8: "Make up a new rule!📓",
+  9: "Rhyme! 🎭 The person who can't think of a rhyme drinks. No repeated words!", // Randomize list of players?
+  10: "Gecko! 🦎 Last person to stick themselves to the nearest wall like a gecko drinks.",
   j:
-    "Question master! Anyone who answers a question you ask drinks (correct response is fuck off!)!",
-  q: "Never have I ever",
+    "Question master! Anyone who answers a question you ask drinks (correct response is fuck off!)❔",
+  q: "Never have I ever! 🙊",
   k:
-    "Take a shot (or drink 2 fingers), if you've picked the last King, finish your drink."
+    "Take a shot (or drink 2 fingers), if you've picked the last King, finish your drink. 🥃🍺"
 };
 
 function App() {
@@ -85,6 +86,11 @@ function App() {
   function addNewPerson() {
     setPlayers([...players, inputText]);
     setInputText("");
+  }
+
+  function deletePerson(i) {
+    const newPlayers = [...players.slice(0, i), ...players.slice(i + 1)];
+    setPlayers(newPlayers);
   }
 
   function keyPressed(event) {
@@ -139,28 +145,43 @@ function App() {
   console.log("Players: ", players);
   return (
     <div className="App">
-      <h1>Ring of Fire!</h1>
-      <button value="Give me a random card!" onClick={getRandomCard}>
-        Give me a random card!
-      </button>
-      {currentCardUrl && (
-        <div>
-          <img
-            src={currentCardUrl}
-            className="card"
-            alt={"A card"}
-            style={{ maxHeight: "300px" }}
-          />
-        </div>
-      )}
+      <div className="headersection">
+        <h1>Ring of Fire!</h1>
+      </div>
 
-      <p>{rule}</p>
-      <PersonInput
-        addNewPerson={addNewPerson}
-        handleInputText={handleInputText}
-        inputText={inputText}
-        keyPressed={keyPressed}
-      />
+      <div className="playersection">
+        <PersonInput
+          addNewPerson={addNewPerson}
+          handleInputText={handleInputText}
+          inputText={inputText}
+          keyPressed={keyPressed}
+        />
+        <PlayerList players={players} deletePerson={deletePerson} />
+      </div>
+
+      <div className="cardsection">
+        <button
+          className="normalbutton"
+          value="Give me a random card!"
+          onClick={getRandomCard}
+        >
+          Give me a random card!
+        </button>
+        {currentCardUrl && (
+          <div>
+            <img
+              src={currentCardUrl}
+              className="card"
+              alt={"A card"}
+              style={{ maxHeight: "300px" }}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="rulesection">
+        <p>{rule}</p>
+      </div>
     </div>
   );
 }

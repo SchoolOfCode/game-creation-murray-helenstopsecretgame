@@ -9,12 +9,45 @@
 
 body {
   font-family: "Indie Flower", cursive;
-  padding: 2em;
+  padding-left: 2em;
   text-align: center;
   background-color: var(--main-purple);
 }
 
-button {
+.App {
+  display: grid;
+  grid-template-columns: 300px 400px 1fr;
+  grid-template-rows: 160px 1fr;
+  grid-template-areas: "header header header" "players cards rules";
+}
+
+.headersection {
+  grid-area: header;
+}
+
+.playersection {
+  grid-area: players;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+}
+
+.playerslist {
+  position: absolute;
+  top: 50px;
+}
+
+.cardsection {
+  grid-area: cards;
+}
+
+.rulesection {
+  grid-area: rules;
+}
+
+.normalbutton {
   border-radius: 25px;
   font-size: 1.1em;
   margin-top: 4px;
@@ -23,6 +56,14 @@ button {
   border: 2px solid var(--main-yellow);
   background-color: var(--main-claret);
   font-family: "Arvo", serif;
+  outline: none;
+  cursor: pointer;
+}
+
+.deletebutton {
+  background-color: var(--main-purple);
+  border: var(--main-purple);
+  outline: none;
 }
 
 .card {
@@ -39,4 +80,57 @@ h1 {
   color: var(--main-yellow);
   font-size: 500%;
   margin: 25px;
+}
+
+h2 {
+  color: var(--main-yellow);
+  font-size: 200%;
+  margin: 0;
+}
+
+.playername {
+  list-style: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+li {
+  list-style: none;
+  display: flex;
+}
+
+ul {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+input[type="text"] {
+  border: 2px solid var(--main-pink);
+  border-radius: 4px;
+  color: var(--main-purple);
+  width: 160px;
+  height: 25px;
+  font-size: 1em;
+  margin-right: 5px;
+}
+
+/* Grow */
+.deletebutton {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  cursor: pointer;
+}
+
+.deletebutton:hover,
+.deletebutton:focus,
+.deletebutton:active {
+  transform: scale(1.1);
 }
