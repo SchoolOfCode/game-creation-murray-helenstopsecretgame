@@ -25,9 +25,13 @@ button {
   font-family: "Arvo", serif;
 }
 
+.card {
+  margin-top: 20px;
+}
+
 p {
   color: var(--main-pink);
-  font-size: 200%;
+  font-size: 150%;
   font-family: "Arvo", serif;
 }
 
