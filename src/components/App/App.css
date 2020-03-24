@@ -1,38 +1,38 @@
-.App {
+:root {
+  --main-purple: #381460;
+  --main-pink: #fe346e;
+  --main-yellow: #ffbd69;
+  --main-claret: #b21f66;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Arvo|Indie+Flower&display=swap");
+
+body {
+  font-family: "Indie Flower", cursive;
+  padding: 2em;
   text-align: center;
+  background-color: var(--main-purple);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  border-radius: 25px;
+  font-size: 1.1em;
+  margin-top: 4px;
+  padding: 10px;
+  color: var(--main-yellow);
+  border: 2px solid var(--main-yellow);
+  background-color: var(--main-claret);
+  font-family: "Arvo", serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  color: var(--main-pink);
+  font-size: 200%;
+  font-family: "Arvo", serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  color: var(--main-yellow);
+  font-size: 500%;
+  margin: 25px;
 }
