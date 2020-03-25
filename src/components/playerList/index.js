@@ -1,16 +1,19 @@
 import React from "react";
 
-function PlayerList({ players, deletePerson }) {
+function PlayerList({ players, deletePerson, currentDrinkerIndex }) {
   return (
     <div className="playerslist">
-      {/* <h2>Players</h2> */}
       <ul>
         {players.map(function(name, i) {
           return (
             <li>
-              <p className="playername">{name}</p>
+              {i === currentDrinkerIndex ? (
+                <p className="playernameHighlight">{name}</p>
+              ) : (
+                <p className="playername">{name}</p>
+              )}
               <button className="deletebutton" onClick={() => deletePerson(i)}>
-                ❌
+                <span role="img">❌</span>
               </button>
             </li>
           );

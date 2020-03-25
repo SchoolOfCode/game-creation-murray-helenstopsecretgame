@@ -82,6 +82,14 @@ function App() {
   const [rule, setRule] = useState("");
   const [players, setPlayers] = useState([]);
   const [inputText, setInputText] = useState("");
+  // Make bit of state for the index of the current drinker
+  const [currentDrinkerIndex, setCurrentDrinkerIndex] = useState(0);
+  // Every time new card button is clicked, add 1 to the current drinker index
+  // except if currentDrinkerIndex >= number of drinks, then set to 0.
+  // Display name that === index as yellow
+  // take in currentDrinkerIndex as a prop
+  // if i === currentDrinkerIndex, add a css class for .currentDrinkerIndex
+  // else, have no css class
 
   function addNewPerson() {
     setPlayers([...players, inputText]);
@@ -128,6 +136,7 @@ function App() {
       // Remove the card
       setCards(cards.slice(1));
       getRule();
+      setCurrentDrinkerIndex((currentDrinkerIndex + 1) % players.length);
     } catch (err) {
       setCurrentCardUrl("");
       setRule("");
@@ -150,13 +159,18 @@ function App() {
       </div>
 
       <div className="playersection">
+        <h2>Players</h2>
         <PersonInput
           addNewPerson={addNewPerson}
           handleInputText={handleInputText}
           inputText={inputText}
           keyPressed={keyPressed}
         />
-        <PlayerList players={players} deletePerson={deletePerson} />
+        <PlayerList
+          players={players}
+          deletePerson={deletePerson}
+          currentDrinkerIndex={currentDrinkerIndex}
+        />
       </div>
 
       <div className="cardsection">
@@ -180,6 +194,7 @@ function App() {
       </div>
 
       <div className="rulesection">
+        <h2>Rule:</h2>
         <p>{rule}</p>
       </div>
     </div>

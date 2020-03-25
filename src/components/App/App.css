@@ -16,7 +16,8 @@ body {
 
 .App {
   display: grid;
-  grid-template-columns: 300px 400px 1fr;
+  margin: 0 40px;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 160px 1fr;
   grid-template-areas: "header header header" "players cards rules";
 }
@@ -36,7 +37,7 @@ body {
 
 .playerslist {
   position: absolute;
-  top: 50px;
+  top: 90px;
 }
 
 .cardsection {
@@ -45,6 +46,9 @@ body {
 
 .rulesection {
   grid-area: rules;
+  border: var(--main-yellow) 2px solid;
+  border-radius: 25px;
+  background: var(--main-claret);
 }
 
 .normalbutton {
@@ -94,6 +98,13 @@ h2 {
   margin-bottom: 0px;
 }
 
+.playernameHighlight {
+  list-style: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: var(--main-yellow);
+}
+
 li {
   list-style: none;
   display: flex;
@@ -114,6 +125,9 @@ input[type="text"] {
   height: 25px;
   font-size: 1em;
   margin-right: 5px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  padding: 10px;
 }
 
 /* Grow */
