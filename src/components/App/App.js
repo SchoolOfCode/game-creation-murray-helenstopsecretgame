@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import PersonInput from "../PersonInput/PersonInput";
-import PlayerList from "../playerList/index";
+import PlayerList from "../PlayerList/index";
+import usePersistantStorage from "../../utils/usePersistentState";
 import "./App.css";
 
 let intialCards = [
@@ -67,7 +69,7 @@ const rules = {
   6: "Pose Master! 🕺 Last person to copy your pose drinks.",
   7: "Heaven! ⛅️ Last person to point to Heaven drinks.  ",
   8: "Make up a new rule!📓",
-  9: "Rhyme! 🎭 The person who can't think of a rhyme drinks. No repeated words!", // Randomize list of players?
+  9: "Rhyme! 🎭 The person who can't think of a rhyme drinks. No repeated words!",
   10: "Gecko! 🦎 Last person to stick themselves to the nearest wall like a gecko drinks.",
   j:
     "Question master! Anyone who answers a question you ask drinks (correct response is fuck off!)❔",
@@ -80,8 +82,12 @@ function App() {
   const [currentCardUrl, setCurrentCardUrl] = useState("");
   const [cards, setCards] = useState([]);
   const [rule, setRule] = useState("");
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = usePersistantStorage([]);
   const [inputText, setInputText] = useState("");
+  const [randomPlayerButtonDisplay, setRandomPlayerButtonDisplay] = useState(
+    false
+  );
+  const [randomPlayerIndex, setRandomPlayerIndex] = useState(null);
   // Make bit of state for the index of the current drinker
   const [currentDrinkerIndex, setCurrentDrinkerIndex] = useState(0);
   // Every time new card button is clicked, add 1 to the current drinker index
@@ -133,6 +139,12 @@ function App() {
       // Show the card
       setCurrentCardUrl(chosenCard.cardUrl);
       // Show the rule they have to do
+      if (cards[0].cardName.slice(1) === "2") {
+        setRandomPlayerButtonDisplay(true);
+      } else {
+        setRandomPlayerButtonDisplay(false);
+        setRandomPlayerIndex(null);
+      }
       // Remove the card
       setCards(cards.slice(1));
       getRule();
@@ -151,7 +163,25 @@ function App() {
     const currentCardType = cards[0].cardName.slice(1);
     setRule(rules[currentCardType]);
   }
-  console.log("Players: ", players);
+
+  // Plan
+  //if certain rule number, show button -> on a button click
+  //somehow choose a player at random
+  //use math.floor and math.random to return a num - use that to give array index
+  //highlight that random player somehow
+  //add   👈🏽
+  //when button for new card is clicked, remove the finger emoji
+
+  function choosePlayer() {
+    const index = Math.floor(Math.random() * players.length);
+    setRandomPlayerIndex(index);
+  }
+
+  const variants = {
+    visible: { opacity: 1, height: "300px" },
+    hidden: { opacity: 0, height: "200px" }
+  };
+
   return (
     <div className="App">
       <div className="headersection">
@@ -170,6 +200,7 @@ function App() {
           players={players}
           deletePerson={deletePerson}
           currentDrinkerIndex={currentDrinkerIndex}
+          randomPlayerIndex={randomPlayerIndex}
         />
       </div>
 
@@ -183,7 +214,10 @@ function App() {
         </button>
         {currentCardUrl && (
           <div>
-            <img
+            <motion.img
+              initial="hidden"
+              animate="visible"
+              variants={variants}
               src={currentCardUrl}
               className="card"
               alt={"A card"}
@@ -194,8 +228,13 @@ function App() {
       </div>
 
       <div className="rulesection">
-        <h2>Rule:</h2>
-        <p>{rule}</p>
+        <h2>Rule</h2>
+        <p className="ruletext">{rule}</p>
+        {randomPlayerButtonDisplay && (
+          <button className="addPersonButton" onClick={choosePlayer}>
+            Get a random player!
+          </button>
+        )}
       </div>
     </div>
   );

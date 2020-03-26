@@ -10,7 +10,7 @@ function PersonInput({ addNewPerson, handleInputText, keyPressed, inputText }) {
         value={inputText}
         onKeyPress={keyPressed}
       />
-      <button className="normalbutton" onClick={addNewPerson}>
+      <button className="addPersonButton" onClick={addNewPerson}>
         Add Player
       </button>
     </div>
